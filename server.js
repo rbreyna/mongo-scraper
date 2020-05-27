@@ -1,9 +1,6 @@
 var express = require("express");
 var mongoose = require("mongoose");
 
-var axios = require("axios");
-var cheerio = require("cheerio");
-
 var PORT = process.env.PORT || 3000;
 
 //Initialize Express
@@ -13,6 +10,8 @@ var routes = require("./routes/apiRoutes");
 // Middleware to parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+//Use routes js file
 app.use("/", routes);
 
 //Start server
