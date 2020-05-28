@@ -7,6 +7,12 @@ var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
+//Require all models
+var db = require("../models/");
+
+// Connect to the Mongo DB
+mongoose.connect("mongodb://localhost/", { useNewUrlParser: true });
+
 //Routes
 router.get("/", function (req, res) {
     res.send("Congrats! You're connected!")
@@ -33,10 +39,16 @@ router.get("/scrape", function (req, res) {
                     result.title = title;
                 }
 
+                db.Article.create(result)
+                    .then(function(dbArticle){
+                        console.log(dbArticle)
+                    })
+                    .catch(function(err){
+                        console.log(err)
+                    })
                 articles.push(result);
             })
 
-            console.log(articles);
             res.send("Scrape Complete!");
         })
 });
