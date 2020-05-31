@@ -14,10 +14,6 @@ var db = require("../models/");
 mongoose.connect("mongodb://localhost/articles", { useNewUrlParser: true });
 
 //Routes
-router.get("/", function (req, res) {
-    //res.send("Congrats! You're connected!")
-});
-
 router.get("/api/scrape", function (req, res) {
     axios.get("https://www.nytimes.com/")
         .then(function (response) {
