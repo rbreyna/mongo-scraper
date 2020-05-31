@@ -5,7 +5,7 @@ var db = require("../models/");
 router.get("/", function(req, res){
     console.log("Route hit.");
     
-    db.Article.find({})
+    db.Article.find({}).lean()
     .then(function(dbArticles) {
       // If we were able to successfully find Articles, send them back to the client
       res.render("index", {dbArticles: dbArticles});
