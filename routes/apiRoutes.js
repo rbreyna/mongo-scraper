@@ -63,11 +63,11 @@ router.get("/api/articles", function (req, res) {
 
 router.get("/api/article/:id", function (req, res) {
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-  db.Article.findOne({ _id: req.params.id })
+  db.Article.find({ _id: req.params.id }).lean()
     // ..and populate all of the notes associated with it
-    .populate("note")
+    //.populate("note")
     .then(function(dbArticle) {
-
+      console.log(req.params.id);
       res.json(dbArticle);
     })
     .catch(function(err) {

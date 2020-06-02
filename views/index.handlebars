@@ -4,11 +4,11 @@
 
   {{#each dbArticles}}
   <div class="card">
-    <div class="card-header">
+    <div class="card-header" id = {{_id}}>
       {{title}}<a href="https://www.nytimes.com{{link}}"> Check out this article! </a>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item"><a href="#" class="btn btn-primary">Save Article!</a></li>
+      <li class="list-group-item"><button id="addNote" data-id = {{_id}} class="btn btn-danger">Make a Note!</button><button data-id = {{_id}} id="saveArticle" class="btn btn-primary">Save Article!</button></li>
     </ul>
   </div><br><br>
   {{/each}}
