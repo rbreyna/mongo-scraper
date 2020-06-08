@@ -61,17 +61,17 @@ router.get("/api/articles", function (req, res) {
     });
 });
 
-router.get("/api/article/:id", function (req, res) {
+router.get("/api/articles/:id", function (req, res) {
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-  db.Article.find({ _id: req.params.id }).lean()
+  db.Article.find({ _id: req.params.id })
+    //.lean()
     // ..and populate all of the notes associated with it
     //.populate("note")
     .then(function(dbArticle) {
-      console.log(req.params.id);
+      //console.log(req.params.id);
       res.json(dbArticle);
     })
     .catch(function(err) {
-
       res.json(err);
     });
 });
