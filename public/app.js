@@ -2,22 +2,30 @@
     var savedArticles = [];
 
    $(".saveArticle").click(function(){
-
         
-        var thisId = $(this).attr("data-id");
+        let index = $(this).attr("data-position");
+        let link = $("#"+index).attr("href");
+        let title = $("#"+index).text();
+
+        console.log(link);
+        console.log(title);
        
-        // Now make an ajax call for the Article
         $.ajax({
-            method: "GET",
-            url: "/api/articles/" + thisId
+            method: "POST",
+            url: "/api/saveArticle/",
+            data:{
+                title: title,
+                link: link
+            }
         })
-            // With that done, add the note information to the page
             .then(function (data) {
-                savedArticles.push(data);
-                console.log(savedArticles);
+                console.log("SAVED!")
             });
+        
+        
     })
 
+    
     $('#noteModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var recipient = button.data('whatever') // Extract info from data-* attributes
@@ -61,6 +69,7 @@
             });
     });
 
+    
     // When you click the savenote button
     $(document).on("click", ".btn btn-primary", function () {
         // Grab the id associated with the article from the submit button

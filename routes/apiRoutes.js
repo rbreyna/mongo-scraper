@@ -34,19 +34,13 @@ router.get("/api/scrape", function (req, res) {
                 } else {
                     result.title = title;
                 }
-
-                db.Article.create(result)
-                    .then(function(dbArticle){
-                        console.log(dbArticle)
-                    })
-                    .catch(function(err){
-                        console.log(err)
-                    })
+                
                 articles.push(result);
             })
-
-            res.send("Scrape Complete!");
+            res.render("index", {Articles: articles});
         })
+
+        
 });
 
 router.get("/api/articles", function (req, res) {
@@ -59,6 +53,16 @@ router.get("/api/articles", function (req, res) {
       // If an error occurred, send it to the client
       res.json(err);
     });
+});
+
+router.post("/api/saveArticle/", function(req, res){
+
+  db.Article.create(req.body)
+    .then(function(res){
+      res.json(res)
+    }).catch(function(err){
+      res.json(err);
+    })
 });
 
 router.get("/api/articles/:id", function (req, res) {

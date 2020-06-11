@@ -1,0 +1,17 @@
+<div class="jumbotron">
+  <h1><strong>Saved Articles</strong></h1>
+</div>
+
+  {{#each Articles}}
+  <div class="card">
+    <div class="card-header" id = {{_id}}>
+      {{title}}<a href="https://www.nytimes.com{{link}}"> Check out this article! </a>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <button id = {{_id}} data-toggle="modal" data-target="#noteModal" data-whatever="@mdo" class="btn btn-danger addNote">Make a Note!</button>
+        <button id = {{_id}} class="btn btn-primary deleteArticle">Delete Article!</button>
+      </li>
+    </ul>
+  </div><br><br>
+  {{/each}}
