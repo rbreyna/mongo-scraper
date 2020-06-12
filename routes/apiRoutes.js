@@ -67,8 +67,7 @@ router.post("/api/saveArticle/", function(req, res){
 
 router.get("/api/articles/:id", function (req, res) {
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-  db.Article.find({ _id: req.params.id })
-    //.lean()
+  db.Article.find({ _id: req.params.id }).lean()
     // ..and populate all of the notes associated with it
     .populate("note")
     .then(function(dbArticle) {

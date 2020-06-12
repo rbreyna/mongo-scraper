@@ -21,11 +21,9 @@
             .then(function (data) {
                 console.log("SAVED!")
             });
-        
-        
     })
     
-    // When you click the savenote button
+    // When you click the addNote button
     $(document).on("click", ".submit", function () {
         // Grab the id associated with the article from the submit button
         let thisId = $(this).attr("id");
@@ -52,4 +50,35 @@
         // Also, remove the values entered in the input and textarea for note entry
         $("#titleinput-"+thisId).val("");
         $("#bodyinput-"+thisId).val("");
+    });
+
+    $(".allNotes").click(function(){
+
+        let index = $(this).attr("id");
+
+        $.ajax({
+            method: "GET",
+            url: "/savedNotes/" + index,
+            data:{
+                id: index
+            }
+        }).then(function(data){
+            console.log(data)
+        })
+    })
+
+    $(".deleteArticle").click(function(){
+        
+        let index = $(this).attr("id");
+
+        $.ajax({
+            method: "GET",
+            url: "/delete/" + index,
+            data:{
+                id: index
+            }
+        })
+            .then(function (data) {
+                console.log("DELETED!")
+            });
     });

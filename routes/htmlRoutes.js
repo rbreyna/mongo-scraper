@@ -38,8 +38,8 @@ router.get("/", function (req, res) {
 })
 
 router.get("/saved", function (req, res) {
-  console.log("Saved route hit.");
-
+  
+  //Locate all saved articles
   db.Article.find({}).lean()
     .then(function (dbArticles) {
       // If we were able to successfully find Articles, send them back to the client
@@ -49,6 +49,37 @@ router.get("/saved", function (req, res) {
       // If an error occurred, send it to the client
       res.json(err);
     });
+})
+
+router.get("/savedNotes/:id", function (req, res) {
+  
+  //Locate all saved articles
+  db.Article.find({_id: req.params.id}).lean()
+    .populate("Note")
+    .then(function (dbArticles) {
+      // If we were able to successfully find Articles, send them back to the client
+      //res.render("notes", { Articles: dbArticles });
+      res.json(dbArticles)
+    })
+    .catch(function (err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+})
+
+router.get("/delete/:id", function (req, res) {
+  
+  //Find the unique record to delete
+  db.Article.findByIdAndDelete(req.params.id, function (dbArticles) {
+      // If we were able to successfully find Articles, send them back to the client
+      console.log("Article Deleted!");
+    })
+    .catch(function (err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+  
+    res.redirect("/saved");
 })
 
 module.exports = router;
