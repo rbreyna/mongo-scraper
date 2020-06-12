@@ -70,7 +70,7 @@ router.get("/api/articles/:id", function (req, res) {
   db.Article.find({ _id: req.params.id })
     //.lean()
     // ..and populate all of the notes associated with it
-    //.populate("note")
+    .populate("note")
     .then(function(dbArticle) {
       //console.log(req.params.id);
       res.json(dbArticle);
@@ -85,8 +85,9 @@ router.post("/articles/:id", function(req, res) {
     // Create a new note and pass the req.body to the entry
     db.Note.create(req.body)
       .then(function(dbNote) {
-       var article = db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
-       return article;
+
+       return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+       
     })
       .then(function(dbArticle) {
       
