@@ -11,7 +11,7 @@ var cheerio = require("cheerio");
 var db = require("../models/");
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/articles", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/articles", { useNewUrlParser: true });
 
 //Routes
 router.get("/api/scrape", function (req, res) {
